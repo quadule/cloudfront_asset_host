@@ -53,7 +53,7 @@ module CloudfrontAssetHost
       self.bucket     = nil
       self.cname      = nil
       self.key_prefix = ""
-      self.s3_config  = "#{RAILS_ROOT}/config/s3.yml"
+      self.s3_config  = "#{Rails.root}/config/s3.yml"
       self.s3_logging = false
       self.enabled    = false
 

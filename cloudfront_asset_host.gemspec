@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Menno van der Sman"]
-  s.date = %q{2010-10-02}
+  s.date = %q{2011-02-02}
   s.description = %q{Easy deployment of your assets on CloudFront or S3 using a simple rake-task. When enabled in production, the application's asset_host and public_paths will point to the correct location.}
   s.email = %q{menno@wakoopa.com}
   s.extra_rdoc_files = [
@@ -57,16 +57,16 @@ Gem::Specification.new do |s|
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<right_aws>, [">= 0"])
-      s.add_development_dependency(%q<activesupport>, ["= 2.3.9"])
-      s.add_development_dependency(%q<actionpack>, ["= 2.3.9"])
+      s.add_development_dependency(%q<activesupport>, ["~> 3.0.3"])
+      s.add_development_dependency(%q<actionpack>, ["~> 3.0.3"])
       s.add_development_dependency(%q<shoulda>, [">= 0"])
       s.add_development_dependency(%q<mocha>, [">= 0"])
       s.add_development_dependency(%q<redgreen>, [">= 0"])
       s.add_development_dependency(%q<turn>, [">= 0"])
     else
       s.add_dependency(%q<right_aws>, [">= 0"])
-      s.add_dependency(%q<activesupport>, ["= 2.3.9"])
-      s.add_dependency(%q<actionpack>, ["= 2.3.9"])
+      s.add_dependency(%q<activesupport>, ["~> 3.0.3"])
+      s.add_dependency(%q<actionpack>, ["~> 3.0.3"])
       s.add_dependency(%q<shoulda>, [">= 0"])
       s.add_dependency(%q<mocha>, [">= 0"])
       s.add_dependency(%q<redgreen>, [">= 0"])
@@ -74,8 +74,8 @@ Gem::Specification.new do |s|
     end
   else
     s.add_dependency(%q<right_aws>, [">= 0"])
-    s.add_dependency(%q<activesupport>, ["= 2.3.9"])
-    s.add_dependency(%q<actionpack>, ["= 2.3.9"])
+    s.add_dependency(%q<activesupport>, ["~> 3.0.3"])
+    s.add_dependency(%q<actionpack>, ["~> 3.0.3"])
     s.add_dependency(%q<shoulda>, [">= 0"])
     s.add_dependency(%q<mocha>, [">= 0"])
     s.add_dependency(%q<redgreen>, [">= 0"])

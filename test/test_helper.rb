@@ -2,7 +2,7 @@ require 'rubygems'
 require 'bundler'
 Bundler.setup
 
-require 'active_support'
+require 'active_support/all'
 require 'action_controller'
 
 require 'test/unit'

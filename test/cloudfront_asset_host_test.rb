@@ -19,7 +19,7 @@ class CloudfrontAssetHostTest < Test::Unit::TestCase
 
     should "not enable itself by default" do
       assert_equal false, CloudfrontAssetHost.enabled
-      assert_equal "", ActionController::Base.asset_host
+      assert_nil ActionController::Base.asset_host
     end
 
     should "return key for path" do
