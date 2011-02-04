@@ -6,6 +6,8 @@ module ActionView
 
       # Override asset_id so it calculates the key by md5 instead of modified-time
       def rails_asset_id_with_cloudfront(source)
+        source.sub!(/\?\d+$/, '') # remove the standard Rails timestamped query string
+        
         if @@cache_asset_timestamps && (asset_id = @@asset_timestamps_cache[source])
           asset_id
         else
