@@ -32,6 +32,11 @@ module ActionView
           "/#{asset_id}#{source}"
         end
       end
+      
+      # Override to allow protocol-relative URIs
+      def is_uri?(path)
+        path =~ %r{^([-a-z]+:)?//|^cid:}
+      end
 
     end
   end
