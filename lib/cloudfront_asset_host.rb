@@ -78,15 +78,17 @@ module CloudfrontAssetHost
     def asset_host(source = nil, request = nil)
       return nil if CloudfrontAssetHost.disable_cdn_for_source?(source)
       
+      protocol = request ? request.protocol : '//'
+      
       if cname.present?
         if cname.is_a?(Proc)
           host = cname.call(source, request)
         else
           host = (cname =~ /%d/) ? cname % (source.hash % 4) : cname.to_s
-          host = "http://#{host}"
+          host = protocol + host
         end
       else
-        host = "http://#{self.bucket_host}"
+        host = protocol + self.bucket_host
       end
 
       if source && request && CloudfrontAssetHost.gzip
