@@ -76,6 +76,8 @@ module CloudfrontAssetHost
     end
 
     def asset_host(source = nil, request = nil)
+      return nil if CloudfrontAssetHost.disable_cdn_for_source?(source)
+      
       if cname.present?
         if cname.is_a?(Proc)
           host = cname.call(source, request)
