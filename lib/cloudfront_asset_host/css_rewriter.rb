@@ -1,4 +1,5 @@
 require 'tempfile'
+require 'fileutils'
 
 module CloudfrontAssetHost
   module CssRewriter
@@ -6,10 +7,12 @@ module CloudfrontAssetHost
     # Location of the stylesheets directory
     mattr_accessor :stylesheets_dir
     self.stylesheets_dir = File.join(Rails.public_path, 'stylesheets')
+    
+    mattr_accessor :strip_query_strings
 
     class << self
       # matches optional quoted url(<path>)
-      ReplaceRexeg = /url\(["']?([^\)\?\#"']+)(\#[^"']*)?(\?[^"']*)?["']?\)/i
+      ReplaceRexeg = /url\(["']?([^\)\?\#"']+)(\#[^"']*)?(\?[^"'\)]*)?["']?\)/i
 
       # Returns the path to the temporary file that contains the
       # rewritten stylesheet
@@ -24,6 +27,13 @@ module CloudfrontAssetHost
         tmp.flush
         tmp
       end
+      
+      def rewrite_stylesheets!
+        stylesheets_to_rewrite.each do |path|
+          rewritten = rewrite_stylesheet(path)
+          FileUtils.mv(rewritten.path, path)
+        end
+      end
 
     private
 
@@ -37,7 +47,8 @@ module CloudfrontAssetHost
           path = path_for_url(url, stylesheet_path)
 
           if path.present? && File.exists?(path)
-            key = CloudfrontAssetHost.key_for_path(path) + path.gsub(Rails.public_path, '') + hash + query
+            key = CloudfrontAssetHost.key_for_path(path) + path.gsub(Rails.public_path, '') + hash
+            key += query unless strip_query_strings
             "url(#{CloudfrontAssetHost.asset_host(url)}/#{key})"
           else
             puts "Could not extract path: #{path}"
