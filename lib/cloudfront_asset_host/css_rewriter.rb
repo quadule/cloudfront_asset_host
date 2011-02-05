@@ -42,7 +42,9 @@ module CloudfrontAssetHost
         url = match[1]
         hash = match[2] || ''
         query = match[3] || ''
-
+        
+        return asset_link if url && CloudfrontAssetHost.disable_cdn_for_source?(url)
+        
         if url
           path = path_for_url(url, stylesheet_path)
 
